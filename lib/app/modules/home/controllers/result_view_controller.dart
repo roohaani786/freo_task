@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freo_task/app/api/wikipedia_api.dart';
 import 'package:freo_task/app/data/api_response.dart';
 import 'package:freo_task/app/data/model/wiki_page_click_model.dart';
@@ -6,18 +7,18 @@ import 'package:get/get.dart';
 
 import '../../../data/model/wiki_search_result_model.dart';
 
-class HomeController extends GetxController {
+class ResultViewController extends GetxController {
 
+  final GlobalKey webViewKey = GlobalKey();
   final WikiRepository wikiRepository = WikiRepository();
-  final String query = "";
-  final TextEditingController queryController = TextEditingController();
-  WikiSearchResultModel? wikiSearchResult;
-  WikiPageClickModel? wikiPageClickResult;
+  WikiPageClickModel clickData = WikiPageClickModel();
+  final urlController = TextEditingController();
   bool isLoading = false;
 
-  final count = 0.obs;
   @override
   void onInit() {
+    final Pages? resultData = Get.arguments;
+    getWikiDetailById(resultData?.pageid??0);
     super.onInit();
   }
 
@@ -31,18 +32,13 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  getWikiSearchResults(String query) async {
+  getWikiDetailById(int pageId) async {
     isLoading = true;
     update();
-    print("Got query $query");
-    ApiResponse apiResponse  = await wikiRepository.getWikiSearchResults(query: query);
-
-    wikiSearchResult = apiResponse.responseData;
-    print(wikiSearchResult?.query?.pages?[0].title??"");
+    ApiResponse apiResponse = await  wikiRepository.getWikiDetailById(pageId: pageId);
+    clickData = apiResponse.responseData;
     isLoading = false;
     update();
   }
-
-
 
 }
