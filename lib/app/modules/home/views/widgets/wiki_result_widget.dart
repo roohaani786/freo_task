@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../constants/color_constnts.dart';
+import '../../../../constants/color_constants.dart';
 import '../../../../constants/text_styles.dart';
 import '../../../../constants/ui_helpers.dart';
 import '../../../../data/model/wiki_search_result_model.dart';
@@ -46,10 +46,6 @@ class WikiResultWidget extends StatelessWidget{
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextButton(onPressed: ()  {
-                    Get.toNamed(Routes.RESULTVIEW,arguments: resultData);
-                    // await homeController.getWikiDetailById(resultData?.pageid??0);
-                    }, child: Text("ok")),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,13 +74,17 @@ class WikiResultWidget extends StatelessWidget{
                       child: Padding(
                         padding: const EdgeInsets.only(top: 2.0,),
                         child:
-                        Text(resultData?.terms?.description?[0]??"N/A" ,style: textStyles.h7TextStyle.copyWith(
-                          color: ColorConstants.white,
+                        Column(
+                          children: [
+                            Text(resultData?.terms?.description?[0]??"N/A" ,style: textStyles.h7TextStyle.copyWith(
+                              color: ColorConstants.white,
+                            ),
+                              overflow: TextOverflow.clip,
+                              maxLines: 3,
+                              softWrap: true,
+                              ),
+                          ],
                         ),
-                          overflow: TextOverflow.clip,
-                          maxLines: 3,
-                          softWrap: true,
-                          ),
                       )),
                 ],
               )),
@@ -117,6 +117,19 @@ class WikiResultWidget extends StatelessWidget{
               ],
             ),
           ),
+          TextButton(onPressed: ()  {
+            Get.toNamed(Routes.RESULTVIEW,arguments: resultData);
+            // await homeController.getWikiDetailById(resultData?.pageid??0);
+          }, child: Container(
+              padding: EdgeInsets.zero,
+              decoration: BoxDecoration(color: ColorConstants.secondaryColor,
+                  borderRadius: BorderRadius.circular(20.0)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16.0),
+                child: Text("Get More Details",style: textStyles.mdTextBoldStyle.copyWith(
+                  color: ColorConstants.white,
+                ),),
+              ))),
 
 
        // Padding(

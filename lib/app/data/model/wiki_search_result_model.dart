@@ -1,3 +1,11 @@
+
+
+import 'dart:convert';
+
+WikiSearchResultModel wikiSearchResultFromJson(String str) => WikiSearchResultModel.fromJson(json.decode(str));
+
+String wikiSearchResultToJson(WikiSearchResultModel data) => json.encode(data.toJson());
+
 class WikiSearchResultModel {
   bool? batchComplete;
   Query? query;

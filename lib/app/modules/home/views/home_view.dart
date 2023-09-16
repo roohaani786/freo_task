@@ -1,9 +1,14 @@
+import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:freo_task/app/constants/list_view_simmer.dart';
+import 'package:freo_task/app/constants/text_styles.dart';
+import 'package:freo_task/app/constants/ui_helpers.dart';
 import 'package:freo_task/app/widgets/app_text_field.dart';
 
 import 'package:get/get.dart';
 
+import '../../../constants/color_constants.dart';
 import '../controllers/home_controller.dart';
 import 'widgets/wiki_result_widget.dart';
 
@@ -13,24 +18,55 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HomeView'),
+        title: const Text('Wiki Search View'),
         centerTitle: true,
+        backgroundColor: ColorConstants.primaryColor,
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Text(
-                controller.query.toString(),
-                style: const TextStyle(fontSize: 20),
-              ),
               AppTextField(
+
+                  actionKeyboard: TextInputAction.done,
                   controller: controller.queryController,
+                  isOutlineBorder: true,
+                  prefixIcon: const Icon(Icons.book_outlined,color: ColorConstants.black,),
+                  suffixIcon: const Icon(Icons.search_sharp,color: ColorConstants.secondaryColor,),
                   hintText: "Search for a personality"),
-              TextButton(onPressed: () async {
-                await controller.getWikiSearchResults(controller.queryController.text);
-              }, child:  const Text("Search")),
+              verticalSpace_6,
+              Text("You can also search for multiple personalities by separating each one by | , for ex: Salman Khan | Aamir Khan",
+              style: textStyles.xsTextRegularStyle.copyWith(
+                color: ColorConstants.greyScaleOTPField,
+              ),),
+              verticalSpace_16,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Material(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(20.0),
+                    onTap: () async {
+                    await controller.getWikiSearchResults(controller.queryController.text);
+                    },
+                        child: Container(
+                        padding: EdgeInsets.zero,
+                        decoration: BoxDecoration(color: ColorConstants.primaryColor,
+                        borderRadius: BorderRadius.circular(20.0)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16.0),
+                          child: Text("Get Results",style: textStyles.mdTextBoldStyle.copyWith(
+                            color: ColorConstants.white
+                          ),),
+                        ))
+                    ),
+                  ),
+                ],
+              ),
+              verticalSpace_16,
 
               GetBuilder<HomeController>(
                   builder: (context)=>
@@ -41,6 +77,7 @@ class HomeView extends GetView<HomeController> {
                     ListView.builder(
                       itemCount: controller.wikiSearchResult?.query?.pages?.length,
                       shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context,index)=>
                            WikiResultWidget(resultData: controller.wikiSearchResult?.query?.pages?[index],),
                     ):const SizedBox(),

@@ -17,6 +17,8 @@ dependencies:
   url_launcher: ^6.1.14
   webview_flutter: ^4.2.2
   dio_http_cache: ^0.3.0
+  dio_cache_interceptor: ^3.4.2
+  shared_preferences: ^2.2.1
 
 dev_dependencies: 
   flutter_lints: ^2.0.0

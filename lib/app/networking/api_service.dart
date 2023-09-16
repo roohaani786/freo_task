@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freo_task/app/networking/url_constants.dart';
 import '../../environment.dart';
 import '../../logger.dart';
+import '../constants/custom_snack_bar.dart';
 import '../data/api_response.dart';
+import '../localization/app_preferences.dart';
 import 'api_error_response.dart';
 import 'base_api_service.dart';
 import 'dio_interceptor.dart';
@@ -16,11 +22,14 @@ class ApiService extends BaseApiService {
 
   static final ApiService _instance = ApiService._internal();
 
-  final DioCacheManager _dioCacheManager = DioCacheManager(CacheConfig(defaultRequestMethod: "GET"));
+  final DioCacheManager _dioCacheManager = DioCacheManager(CacheConfig());
 
   factory ApiService.getInstance() {
     return _instance;
   }
+
+
+
 
   ApiService._internal() {
     _dio = Dio()
@@ -28,9 +37,6 @@ class ApiService extends BaseApiService {
       ..options.receiveTimeout = defaultReceiveTimeout
       ..interceptors.addAll([DioInterceptor(),_dioCacheManager.interceptor]);
   }
-
-
-  final Options _cacheOptions = buildCacheOptions(const Duration(seconds: 40));
 
   @override
   Future<ApiResponse<T>> postApiCall<T>(String url, Map<String, dynamic> body,
@@ -130,20 +136,23 @@ class ApiService extends BaseApiService {
     Logger.i(url, tag: "GET URL");
 
 
-    if (!(await isInternetConnected())) {
-      return Future.value(ApiResponse.networkError(
-          httpStatusCode: ApiResponseListener.noInternetConnection));
-    }
-    Response response;
 
     try {
-      if (responseTypesAsBytes) {
-        Options ops = options ?? _cacheOptions;
-        ops.responseType = ResponseType.bytes;
-        response = await _dio.get(url, queryParameters: qParams, options: ops);
-      } else {
-        response =
-        await _dio.get(url, queryParameters: qParams, options: _cacheOptions);
+      if (await isInternetConnected() == false) {
+        showCustomSnackBar("No Internet Connection");
+      }
+      DioCacheManager dioCacheManager;
+      dioCacheManager = DioCacheManager(CacheConfig());
+      Options cacheOptions =
+      buildCacheOptions(const Duration(days: 7), forceRefresh: true);
+      Dio dio = Dio();
+      dio.interceptors.addAll([dioCacheManager.interceptor,DioInterceptor()]);
+      Response response = await dio.get(
+          url,
+          queryParameters: qParams,
+          options: cacheOptions);
+      if (kDebugMode) {
+        print(response);
       }
       Logger.i("${response.statusCode}", tag: "RESPONSE CODE");
       Logger.i(response.data, tag: "RESPONSE", isJson: true);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freo_task/app/localization/app_preferences.dart';
 
 import 'package:get/get.dart';
 
@@ -15,6 +16,7 @@ void main() async {
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      debugShowCheckedModeBanner: false,
     ),
   );
 }

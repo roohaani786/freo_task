@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'color_constnts.dart';
+import 'color_constants.dart';
 
 class ListViewSimmer extends StatelessWidget {
   const ListViewSimmer({this.wrap = false, super.key,this.widget});

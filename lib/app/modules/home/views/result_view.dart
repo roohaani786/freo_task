@@ -3,6 +3,7 @@ import 'package:freo_task/app/constants/list_view_simmer.dart';
 import 'package:freo_task/app/data/model/wiki_search_result_model.dart';
 import 'package:freo_task/app/modules/web_view.dart';
 import 'package:get/get.dart';
+import '../../../constants/color_constants.dart';
 import '../controllers/result_view_controller.dart';
 
 class ResultView extends GetView<ResultViewController> {
@@ -13,7 +14,7 @@ class ResultView extends GetView<ResultViewController> {
   @override
   Widget build(BuildContext context){
     return  Scaffold(
-        appBar: AppBar(title: Text(resultData?.title??"N/A"),),
+        appBar: AppBar(title: Text(resultData?.title??"N/A"),backgroundColor: ColorConstants.primaryColor,),
         body: GetBuilder<ResultViewController>(
           builder: (context)=>
           (controller.isLoading == true)?

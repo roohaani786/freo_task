@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../constants/color_constnts.dart';
+import '../constants/color_constants.dart';
 import '../constants/text_styles.dart';
 
 class AppTextField extends StatelessWidget {
@@ -71,113 +71,107 @@ class AppTextField extends StatelessWidget {
         // accentColor: Palette.colorActionableText,
         primaryColor: ColorConstants.greyScaleDark6,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Text(hintText, style: textStyles.smTextRegularStyle.copyWith(color: ColorConstants.greyScaleDark5),),
-          TextFormField(
-            cursorColor: ColorConstants.primaryColor,
-            obscureText: obscureText,
-            keyboardType: textInputType,
-            textAlign: textAlign,
-            textInputAction: actionKeyboard,
-            textCapitalization: textCapitalization,
-            focusNode: focusNode,
-            enabled: isEnabled,
-            maxLength: maxLength,
-            maxLines: obscureText ? 1 : maxLines,
-            inputFormatters: const [
-            ],
-            style: textStyles.mdTextRegularStyle
-                .copyWith(color: ColorConstants.greyScaleDark1),
-            decoration: InputDecoration(
-              //counterStyle: Put Style here,
-                prefixIcon: prefixIcon,
-                prefixIconConstraints: prefixIconConstraints ?? const BoxConstraints(
-                  minWidth: 30,
-                  minHeight: 15,
-                ),
-                prefixText: prefixText,
-                suffixIcon: suffixIcon,
-                suffixIconConstraints: const BoxConstraints(
-                  minWidth: 30,
-                  minHeight: 15,
-                ),
-                // hintText: hintText,
-                labelText: hintText,
-                enabledBorder: isOutlineBorder
-                    ? OutlineInputBorder(
-                  borderSide:
-                  BorderSide(color: enabledBorderColor, width: 0.8),
-                )
-                    : UnderlineInputBorder(
-                  borderSide:
-                  BorderSide(color: enabledBorderColor, width: 0.8),
-                ),
-                focusedBorder: isOutlineBorder
-                    ? const OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: ColorConstants.primaryColor, width: 1),
-                )
-                    : const UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      color: ColorConstants.primaryColor, width: 1),
-                ),
-                /*enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Palette.colorPrimary),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Palette.colorPrimary),
-              ),*/
-                // hintStyle: textStyles.smTextRegularStyle.copyWith(color: ColorConstants.greyScaleDark5),
-                labelStyle: textStyles.mdTextRegularStyle
-                    .copyWith(color: ColorConstants.greyScaleDark5),
-                contentPadding: contentPadding ??
-                    const EdgeInsets.only(
-                        top: 12,
-                        bottom: bottomPaddingToError,
-                        left: 0.0,
-                        right: 0.0),
-                isDense: true,
-                errorStyle: textStyles.smTextRegularStyle
-                    .copyWith(color: ColorConstants.statusColoursRed0),
-                errorBorder: isOutlineBorder
-                    ? OutlineInputBorder(
-                  borderSide:
-                  BorderSide(color: enabledBorderColor, width: 0.8),
-                )
-                    : UnderlineInputBorder(
-                  borderSide:
-                  BorderSide(color: enabledBorderColor, width: 0.8),
-                ),
-                focusedErrorBorder: isOutlineBorder
-                    ? OutlineInputBorder(
-                  borderSide:
-                  BorderSide(color: enabledBorderColor, width: 1),
-                )
-                    : UnderlineInputBorder(
-                  borderSide:
-                  BorderSide(color: enabledBorderColor, width: 1),
-                ),
-                errorText: errorText
-              /*errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Palette.colorPrimary),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Palette.colorPrimary),
-              ),*/
-            ),
-            controller: controller,
-            validator: functionValidate,
-            onFieldSubmitted: (value) {
-              if (onSubmitField != null) onSubmitField!();
-            },
-            onTap: () {
-              if (onFieldTap != null) onFieldTap!();
-            },
-            onChanged: functionOnTextChange,
-          ),
+      child: TextFormField(
+        cursorColor: ColorConstants.primaryColor,
+        obscureText: obscureText,
+        keyboardType: textInputType,
+        textAlign: textAlign,
+        textInputAction: actionKeyboard,
+        textCapitalization: textCapitalization,
+        focusNode: focusNode,
+        enabled: isEnabled,
+        maxLength: maxLength,
+        maxLines: obscureText ? 1 : maxLines,
+        inputFormatters: const [
         ],
+        style: textStyles.mdTextRegularStyle
+            .copyWith(color: ColorConstants.greyScaleDark1),
+        decoration: InputDecoration(
+          //counterStyle: Put Style here,
+            prefixIcon: prefixIcon,
+            prefixIconConstraints: prefixIconConstraints ?? const BoxConstraints(
+              minWidth: 30,
+              minHeight: 15,
+            ),
+            prefixText: prefixText,
+            suffixIcon: suffixIcon,
+            suffixIconConstraints: const BoxConstraints(
+              minWidth: 30,
+              minHeight: 15,
+            ),
+            // hintText: hintText,
+            labelText: hintText,
+            enabledBorder: isOutlineBorder
+                ? OutlineInputBorder(
+              borderSide:
+              BorderSide(color: enabledBorderColor, width: 0.8),
+            )
+                : UnderlineInputBorder(
+              borderSide:
+              BorderSide(color: enabledBorderColor, width: 0.8),
+            ),
+            focusedBorder: isOutlineBorder
+                ? const OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: ColorConstants.primaryColor, width: 1),
+            )
+                : const UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: ColorConstants.primaryColor, width: 1),
+            ),
+            /*enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Palette.colorPrimary),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Palette.colorPrimary),
+          ),*/
+            // hintStyle: textStyles.smTextRegularStyle.copyWith(color: ColorConstants.greyScaleDark5),
+            labelStyle: textStyles.mdTextRegularStyle
+                .copyWith(color: ColorConstants.greyScaleDark5),
+            contentPadding: contentPadding ??
+                const EdgeInsets.only(
+                    top: 12,
+                    bottom: bottomPaddingToError,
+                    left: 0.0,
+                    right: 0.0),
+            isDense: true,
+            errorStyle: textStyles.smTextRegularStyle
+                .copyWith(color: ColorConstants.statusColoursRed0),
+            errorBorder: isOutlineBorder
+                ? OutlineInputBorder(
+              borderSide:
+              BorderSide(color: enabledBorderColor, width: 0.8),
+            )
+                : UnderlineInputBorder(
+              borderSide:
+              BorderSide(color: enabledBorderColor, width: 0.8),
+            ),
+            focusedErrorBorder: isOutlineBorder
+                ? OutlineInputBorder(
+              borderSide:
+              BorderSide(color: enabledBorderColor, width: 1),
+            )
+                : UnderlineInputBorder(
+              borderSide:
+              BorderSide(color: enabledBorderColor, width: 1),
+            ),
+            errorText: errorText
+          /*errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Palette.colorPrimary),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Palette.colorPrimary),
+          ),*/
+        ),
+        controller: controller,
+        validator: functionValidate,
+        onFieldSubmitted: (value) {
+          if (onSubmitField != null) onSubmitField!();
+        },
+        onTap: () {
+          if (onFieldTap != null) onFieldTap!();
+        },
+        onChanged: functionOnTextChange,
       ),
     );
   }

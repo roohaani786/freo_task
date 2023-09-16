@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'color_constnts.dart';
+import 'color_constants.dart';
 
 
 final TextStylesConstant textStyles = TextStylesConstant();
