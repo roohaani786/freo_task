@@ -56,7 +56,7 @@ class AppTextField extends StatelessWidget {
         this.maxLength,
         this.maxLines,
         this.isOutlineBorder = false,
-        this.enabledBorderColor = ColorConstants.greyScaleDark6,
+        this.enabledBorderColor = ColorConstants.primaryColor,
         this.contentPadding,
         this.isEnabled = true,
         this.inputFormatters})
@@ -69,10 +69,10 @@ class AppTextField extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(
         // accentColor: Palette.colorActionableText,
-        primaryColor: ColorConstants.greyScaleDark6,
+        primaryColor: ColorConstants.primaryColor,
       ),
       child: TextFormField(
-        cursorColor: ColorConstants.primaryColor,
+        cursorColor: ColorConstants.white,
         obscureText: obscureText,
         keyboardType: textInputType,
         textAlign: textAlign,
@@ -84,8 +84,9 @@ class AppTextField extends StatelessWidget {
         maxLines: obscureText ? 1 : maxLines,
         inputFormatters: const [
         ],
-        style: textStyles.mdTextRegularStyle
-            .copyWith(color: ColorConstants.greyScaleDark1),
+        style: textStyles.mdTextRegularStyle.copyWith(
+            color: ColorConstants.black
+        ),
         decoration: InputDecoration(
           //counterStyle: Put Style here,
             prefixIcon: prefixIcon,
@@ -100,7 +101,17 @@ class AppTextField extends StatelessWidget {
               minHeight: 15,
             ),
             // hintText: hintText,
-            labelText: hintText,
+            // labelText: hintText,
+            label: Text(
+              hintText,
+              style: textStyles.mdTextRegularStyle.copyWith(
+                color: ColorConstants.greyScaleOTPField,
+              ),
+            ),
+
+            hintStyle: textStyles.mdTextRegularStyle.copyWith(
+              color: Colors.black
+            ),
             enabledBorder: isOutlineBorder
                 ? OutlineInputBorder(
               borderSide:
@@ -127,7 +138,7 @@ class AppTextField extends StatelessWidget {
           ),*/
             // hintStyle: textStyles.smTextRegularStyle.copyWith(color: ColorConstants.greyScaleDark5),
             labelStyle: textStyles.mdTextRegularStyle
-                .copyWith(color: ColorConstants.greyScaleDark5),
+                .copyWith(color: ColorConstants.white),
             contentPadding: contentPadding ??
                 const EdgeInsets.only(
                     top: 12,

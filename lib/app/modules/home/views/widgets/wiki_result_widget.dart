@@ -52,6 +52,7 @@ class WikiResultWidget extends StatelessWidget{
                     children: [
                       Expanded(
                         child: Text(resultData?.title??"N/A",
+                          textScaleFactor: 1.0,
                           style: textStyles.mdTextRegularStyle.copyWith(
                             color: ColorConstants.white,
                           ),),
@@ -76,7 +77,8 @@ class WikiResultWidget extends StatelessWidget{
                         child:
                         Column(
                           children: [
-                            Text(resultData?.terms?.description?[0]??"N/A" ,style: textStyles.h7TextStyle.copyWith(
+                            Text(resultData?.terms?.description?[0]??"N/A" ,
+                              textScaleFactor: 1.0,style: textStyles.h7TextStyle.copyWith(
                               color: ColorConstants.white,
                             ),
                               overflow: TextOverflow.clip,
@@ -96,7 +98,8 @@ class WikiResultWidget extends StatelessWidget{
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(resultData?.description??"N/A",style: textStyles.xxsTextRegularStyle.copyWith(
+                    Text(resultData?.description??"N/A",
+                      textScaleFactor: 1.0,style: textStyles.xxsTextRegularStyle.copyWith(
                       color: ColorConstants.greyScaleOTPField,
                     ),),
                     verticalSpace_8,
@@ -126,7 +129,8 @@ class WikiResultWidget extends StatelessWidget{
                   borderRadius: BorderRadius.circular(20.0)),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16.0),
-                child: Text("Get More Details",style: textStyles.mdTextBoldStyle.copyWith(
+                child: Text("Get More Details",
+                  textScaleFactor: 1.0,style: textStyles.mdTextBoldStyle.copyWith(
                   color: ColorConstants.white,
                 ),),
               ))),

@@ -14,14 +14,14 @@ class ResultView extends GetView<ResultViewController> {
   @override
   Widget build(BuildContext context){
     return  Scaffold(
-        appBar: AppBar(title: Text(resultData?.title??"N/A"),backgroundColor: ColorConstants.primaryColor,),
+        appBar: AppBar(title: Text(resultData?.title??"N/A", textScaleFactor: 1.0,),backgroundColor: ColorConstants.primaryColor,),
         body: GetBuilder<ResultViewController>(
           builder: (context)=>
           (controller.isLoading == true)?
           const ListViewSimmer(wrap: true,):
           (controller.clickData.query != null)?
           WebView(
-              uri: controller.clickData.query?.pages?[0].fullurl??""):
+              uri: controller.clickData.query?.pages?[0].fullurl??"http://wikipedia.org"):
           const SizedBox(),
         ));
   }
