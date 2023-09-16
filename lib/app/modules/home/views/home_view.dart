@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:freo_task/app/constants/list_view_simmer.dart';
 import 'package:freo_task/app/constants/text_styles.dart';
 import 'package:freo_task/app/constants/ui_helpers.dart';
@@ -28,75 +29,43 @@ class HomeView extends GetView<HomeController> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              // AppTextField(
-              //
-              //     actionKeyboard: TextInputAction.done,
-              //     controller: controller.queryController,
-              //     isOutlineBorder: true,
-              //     prefixIcon: const Icon(Icons.book_outlined,color: ColorConstants.black,),
-              //     suffixIcon: const Icon(Icons.search_sharp,color: ColorConstants.secondaryColor,),
-              //     hintText: "Search for a personality"),
-              // verticalSpace_6,
-              // Text("You can also search for multiple personalities by separating each one by | , for ex: Salman Khan | Aamir Khan",
-              // textScaleFactor: 1.0,
-              // style: textStyles.smTextRegularStyle.copyWith(
-              //   color: ColorConstants.greyScaleOTPField,
-              // ),),
-              // verticalSpace_16,
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.end,
-              //   children: [
-              //     Material(
-              //       color: Colors.transparent,
-              //       borderRadius: BorderRadius.circular(20.0),
-              //       child: InkWell(
-              //         borderRadius: BorderRadius.circular(20.0),
-              //       onTap: () async {
-              //       await controller.getWikiSearchResults(controller.queryController.text);
-              //       },
-              //           child: Container(
-              //           padding: EdgeInsets.zero,
-              //           decoration: BoxDecoration(color: ColorConstants.primaryColor,
-              //           borderRadius: BorderRadius.circular(20.0)),
-              //           child: Padding(
-              //             padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16.0),
-              //             child: Text("Get Results",
-              //               textScaleFactor: 1.0,style: textStyles.mdTextBoldStyle.copyWith(
-              //               color: ColorConstants.white
-              //             ),),
-              //           ))
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // verticalSpace_16,
-
-              GetBuilder<HomeController>(
-                  builder: (context) => Container(
-                        child: (controller.isLoading)
-                            ? const ListViewSimmer(
-                                wrap: true,
+          child: GetBuilder<HomeController>(
+              builder: (context) => Container(
+                    child: (controller.isLoading)
+                        ? const ListViewSimmer(
+                            wrap: true,
+                          )
+                        : (controller.wikiSearchResult?.query?.pages !=
+                                null)
+                            ? ListView.builder(
+                                itemCount: controller
+                                    .wikiSearchResult?.query?.pages?.length,
+                                shrinkWrap: true,
+                                physics:
+                                    const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) =>
+                                    WikiResultWidget(
+                                  resultData: controller.wikiSearchResult
+                                      ?.query?.pages?[index],
+                                ),
                               )
-                            : (controller.wikiSearchResult?.query?.pages !=
-                                    null)
-                                ? ListView.builder(
-                                    itemCount: controller
-                                        .wikiSearchResult?.query?.pages?.length,
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) =>
-                                        WikiResultWidget(
-                                      resultData: controller.wikiSearchResult
-                                          ?.query?.pages?[index],
-                                    ),
-                                  )
-                                : const SizedBox(),
-                      ))
-            ],
-          ),
+                            : Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                                children: [
+                                  const SizedBox(height: 100.0,),
+                                  SvgPicture.asset("assets/icons/search_full.svg",
+                                  height: 200.0,
+                                  ),
+
+                                  Text("Wiki Search Task",style: textStyles.mdTextBoldStyle.copyWith(
+                                    color: ColorConstants.primaryColor,
+                                  ),)
+                                ],
+                              ),
+                            ),
+                  )),
         ),
       ),
       resizeToAvoidBottomInset: true,
@@ -125,6 +94,7 @@ class HomeView extends GetView<HomeController> {
               verticalSpace_10,
 
               AppTextField(
+                textCapitalization: TextCapitalization.words,
                 actionKeyboard: TextInputAction.search,
                 onSubmitField: () async {
                   await controller.getWikiSearchResults(
