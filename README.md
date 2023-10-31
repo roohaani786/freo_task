@@ -1,4 +1,4 @@
-# freo_task
+# wikipedia_caching
 
 Use the Wikipedia API to show a list of user search results. The link contains sample API requests and an API sandbox environment to test it out. (For example, click this to see what a sample request/response looks like.)
 - Parse JSON from the API response.
